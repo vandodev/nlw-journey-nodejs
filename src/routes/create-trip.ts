@@ -62,6 +62,9 @@ export async function createTrip(app: FastifyInstance) {
           
           const mail = await getMailClient()
 
+          const formattedStartDate = dayjs(starts_at).format('LL')
+          const formattedEndDate = dayjs(ends_at).format('LL')
+
         const message = await mail.sendMail({
         from: {
           name: 'Equipe plann.er',
@@ -74,7 +77,7 @@ export async function createTrip(app: FastifyInstance) {
         subject: `Confirme sua viagem para ${destination} em 16 a 27 de julho`,
         html: `
         <div style="font-family: sans-serif; font-size: 16px; line-height: 1.6;">
-          <p>Você solicitou a criação de uma viagem para <strong>${destination}</strong> nas datas de <strong>16 a 27 de julho</strong> até <strong>16 a 27 de julho</strong>.</p>
+          <p>Você solicitou a criação de uma viagem para <strong>${destination}</strong> nas datas de <strong>${formattedStartDate}</strong> até <strong>${formattedEndDate}</strong>.</p>
           <p></p>
           <p>Para confirmar sua viagem, clique no link abaixo:</p>
           <p></p>
