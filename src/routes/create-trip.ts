@@ -62,20 +62,30 @@ export async function createTrip(app: FastifyInstance) {
           
           const mail = await getMailClient()
 
-          const message = await mail.sendMail({
-            from: {
-                name: 'Equipe plann.er',
-                address: 'oi@plann.er',
-            },
-            to: {
-              name: owner_name,
-              address: owner_email,
-            },
-           
-            subject: `Confirme sua viagem para `,      
-
-            html: ` <p>Teste envio de email</p>`
-        })
+        const message = await mail.sendMail({
+        from: {
+          name: 'Equipe plann.er',
+          address: 'oi@plann.er',
+        },
+        to: {
+          name: owner_name,
+          address: owner_email,
+        },
+        subject: `Confirme sua viagem para ${destination} em 16 a 27 de julho`,
+        html: `
+        <div style="font-family: sans-serif; font-size: 16px; line-height: 1.6;">
+          <p>Você solicitou a criação de uma viagem para <strong>${destination}</strong> nas datas de <strong>16 a 27 de julho</strong> até <strong>16 a 27 de julho</strong>.</p>
+          <p></p>
+          <p>Para confirmar sua viagem, clique no link abaixo:</p>
+          <p></p>
+          <p>
+            <a href="#">Confirmar viagem</a>
+          </p>
+          <p></p>
+          <p>Caso você não saiba do que se trata esse e-mail, apenas ignore esse e-mail.</p>
+        </div>
+      `.trim(),
+      })
 
       console.log(nodemailer.getTestMessageUrl(message))
 
