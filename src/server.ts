@@ -1,6 +1,7 @@
 import fastify from 'fastify'
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod'
 import cors from '@fastify/cors'
+import { env } from './env'
 
 import { confirmTrip } from './routes/confirm-trip'
 import { confirmParticipants } from './routes/confirm-participant'
@@ -40,6 +41,6 @@ app.register(updateTrip)
 app.register(getTripDetails)
 app.register(getParticipant)
 
-app.listen({ port:3333 }).then(() => {
+app.listen({ port: env.PORT }).then(() => {
     console.log('Server running!')
 })
